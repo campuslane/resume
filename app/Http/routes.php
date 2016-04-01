@@ -12,17 +12,20 @@
 */
 
 use App\Models\Resume;
+use App\Models\Item;
+
+Route::get('bullet', function(){
+	return view('resumes.bullet');
+});
 
 Route::get('/', function () {
 
+	$item = Item::with('itemable')->first();
+
+	dd($item);
+
 	$resume = Resume::with('sections', 'sections.jobs')->first();
    
-    foreach($resume->sections as $section) {
-    	echo '<h1>' . $section->title . '</h1>';
-    	foreach($section->jobs as $job) {
-    		echo '<p><strong>' . $job->company . ' | ' . $job->role . '</strong></p>';
-    		echo '<p>' . $job->content . '</p>';
-    	}
-    }
+    return view('resumes.resume', compact('resume'));
 
 });

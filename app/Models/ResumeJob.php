@@ -14,4 +14,9 @@ class ResumeJob extends Model
     {
     	return $this->belongsTo('App\Models\ResumeSection');
     }
+
+    public function items()
+    {
+        return $this->morphMany('App\Models\Item', 'itemable');
+    }
 }

@@ -14,9 +14,9 @@ class CreateResumeJobs extends Migration
     {
         Schema::create('resume_jobs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('resume_section_id');
+            $table->integer('itemable_id');
+            $table->string('itemable_type');
             $table->integer('sort')->default(0);
-            $table->string('type');
             $table->string('company');
             $table->string('role')->nullable();
             $table->date('start_date');
@@ -25,6 +25,9 @@ class CreateResumeJobs extends Migration
             $table->text('content_after');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->index('itemable_id');
+            $table->index('itemable_type');
         });
     }
 
